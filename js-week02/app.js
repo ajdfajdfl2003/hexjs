@@ -10,7 +10,6 @@ const app = {
     axios.get(url, { params: { page } })
       .then( ({ data:{ data, meta } }) => {
         vm.data.categories = new Set(data.map( product => product.category))
-        console.log(vm.data.categories)
         vm.data.products = data;
         vm.render();
       })
