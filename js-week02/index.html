@@ -1,15 +1,29 @@
 <html>
     <head>
         <title>第二週主線作業@JavaScript實戰班</title>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" type="text/css" href="style.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-        <div class="container">
-            <h2>動物森友會</h2>
-            <div id="app" class="card-columns"></div>
+        <nav class="site-header sticky-top py-1">
+            <div class="container d-flex flex-column flex-md-row justify-content-between">
+                <a class="py-2" href="#">
+                    <h3>動物森友會</h3>
+                </a>
+            </div>
+        </nav>
+        <div id="app" class="container">
+            <nav class="navbar navbar-light bg-light">
+                <a class="navbar-brand" href="#">種類</a>
+                <div id="categories" class="mr-auto"></div>
+            </nav>
+            <div id="products" class="card-columns"></div>
         </div>
+        <footer class="container-fluid py-2 text-center align-middle">
+            圖片取自網路，無商業用途，僅供學習使用
+        </footer>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
         <script src="app.js"></script>
     </body>
