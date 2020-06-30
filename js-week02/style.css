@@ -1,4 +1,9 @@
+body {
+    position: relative;
+}
 footer {
+    position: absolute;
+    bottom: 0;
     padding: 2.5rem 0;
     color: #999;
     text-align: center;
