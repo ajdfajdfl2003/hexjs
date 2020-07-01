@@ -2,10 +2,6 @@ body {
     position: relative;
 }
 
-.container {
-    padding-bottom: 5%
-}
-
 footer {
     position: absolute;
     bottom: 0;
@@ -22,7 +18,7 @@ footer {
     backdrop-filter: saturate(180%) blur(20px);
 }
 
-.site-header a {
+.site-header h3 {
     color: #999;
     transition: ease-in-out color .15s;
 }
