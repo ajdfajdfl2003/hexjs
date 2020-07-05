@@ -45,23 +45,27 @@ new Vue({
     deleteProduct () {
       const index = this.products
         .findIndex(item => item.id === this.editProduct.id);
+
       if (index !== -1) this.products.splice(index, 1);
+
+      this.editProduct = {};
       controlDeleteProductModal(false);
     },
     updateProduct () {
-      console.log(JSON.stringify(this.editProduct));
       if (Object.keys(this.editProduct).length <= 0) return;
 
       const index = this.products
         .findIndex(item => item.id === this.editProduct.id);
+
       if (index !== -1) {
         this.$set(this.products, index, JSON.parse(JSON.stringify(this.editProduct)));
       } else {
         this.editProduct.id = _uuid();
-        this.products.splice(index, 0, JSON.parse(JSON.stringify(this.editProduct)));
+        this.products.splice(this.products.length, 0, JSON.parse(JSON.stringify(this.editProduct)));
       }
-      console.log(JSON.stringify(this.editProduct));
+
       controlProductModal(false);
+      this.editProduct = {};
     },
     openModal (action, item = {}) {
       this.editProduct = JSON.parse(JSON.stringify(item));
