@@ -25,6 +25,18 @@ new Vue({
         origin_price: 150,
         price: 90,
         unit: '張'
+      },
+      {
+        id: '2be412f7-1b5b-4b01-9981-ac319f01c65f',
+        title: '薩爾達傳說 曠野之息 林克拉弓公仔',
+        category: 'amiibo 公仔',
+        content: '支援對應Switch、3DS、Wii U',
+        description: '可當收藏品擺飾，增添個人風格',
+        imageUrl: 'https://e.ecimg.tw/items/DGBJCIA900953P0/000001_1529479630.jpg',
+        enabled: true,
+        origin_price: 590,
+        price: 550,
+        unit: '隻'
       }
     ],
     editProduct: {},
