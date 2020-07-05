@@ -30,24 +30,31 @@ new Vue({
     editProduct: {},
   },
   methods: {
+    deleteProduct () {
+      const index = this.products
+        .findIndex(item => item.id === this.editProduct.id);
+      if (index !== -1) this.products.splice(index, 1);
+      controlDeleteProductModal(false);
+    },
     updateProduct () {
-      this.products
-        .filter(item => item.id === this.editProduct.id)
-        .map((item, index) =>
-          this.$set(this.products, index, JSON.parse(JSON.stringify(this.editProduct))));
+      const index = this.products
+        .findIndex(item => item.id === this.editProduct.id);
+      if (index !== -1) this.$set(this.products, index, JSON.parse(JSON.stringify(this.editProduct)));
       controlProductModal(false);
     },
     openModal (action, item = {}) {
+      this.editProduct = JSON.parse(JSON.stringify(item));
       switch (action) {
         case 'create':
-          this.editProduct = JSON.parse(JSON.stringify(item));
           changeProductModalTitle('新增產品');
           controlProductModal(true);
           break;
         case 'edit':
-          this.editProduct = JSON.parse(JSON.stringify(item));
           changeProductModalTitle('編輯產品');
           controlProductModal(true);
+          break;
+        case 'delete':
+          controlDeleteProductModal(true);
           break;
         default:
           break;

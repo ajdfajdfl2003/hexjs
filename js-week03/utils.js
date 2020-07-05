@@ -7,3 +7,9 @@ function controlProductModal (shouldShow) {
 function changeProductModalTitle (title) {
   document.querySelector('#productLabel > span').innerHTML = title;
 }
+
+function controlDeleteProductModal (shouldShow) {
+  shouldShow ?
+    $('#delProductModal').modal('show') :
+    $('#delProductModal').modal('hide');
+}
