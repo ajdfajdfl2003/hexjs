@@ -3,6 +3,7 @@ new Vue({
   data: {
     products: [
       {
+        id: '9e9d0999-bc5a-4ddf-bebb-2bfce38cdbaa',
         title: '艷后',
         category: 'amiibo 卡',
         content: '居民內部裝潢是埃及風格，是一位個性成熟的居民',
@@ -14,6 +15,7 @@ new Vue({
         unit: '張'
       },
       {
+        id: '68df030a-c2cb-48cb-b5b7-a23c6268f93f',
         title: '莎莉',
         category: 'amiibo 卡',
         content: '一白遮三醜是她的座右銘，是一位個性普通的居民',
@@ -29,13 +31,16 @@ new Vue({
   },
   methods: {
     updateProduct () {
-      console.log('update');
+      this.products
+        .filter(item => item.id === this.editProduct.id)
+        .map((item, index) =>
+          this.$set(this.products, index, JSON.parse(JSON.stringify(this.editProduct))));
       controlProductModal(false);
     },
     openModal (action, item = {}) {
-      console.log(item);
       switch (action) {
         case 'create':
+          this.editProduct = JSON.parse(JSON.stringify(item));
           changeProductModalTitle('新增產品');
           controlProductModal(true);
           break;
