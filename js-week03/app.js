@@ -34,8 +34,18 @@ new Vue({
     },
     openModal (action) {
       console.log('action', action);
-      document.querySelector('#productLabel > span').innerHTML = '新增產品';
-      controlProductModal(true);
+      switch (action) {
+        case 'create':
+          changeProductModalTitle('新增產品');
+          controlProductModal(true);
+          break;
+        case 'edit':
+          changeProductModalTitle('編輯產品');
+          controlProductModal(true);
+          break;
+        default:
+          break;
+      }
     }
   }
 });
