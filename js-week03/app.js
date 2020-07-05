@@ -5,10 +5,14 @@ new Vue({
     editProduct: {},
   },
   methods: {
-    openModal(action) {
+    updateProduct () {
+      console.log('update');
+      controlProductModal(false);
+    },
+    openModal (action) {
       console.log('action', action);
       document.querySelector('#productLabel > span').innerHTML = '新增產品';
-      $('#productModal').modal('show');
+      controlProductModal(true);
     }
   }
 });
