@@ -32,14 +32,15 @@ new Vue({
       console.log('update');
       controlProductModal(false);
     },
-    openModal (action) {
-      console.log('action', action);
+    openModal (action, item = {}) {
+      console.log(item);
       switch (action) {
         case 'create':
           changeProductModalTitle('新增產品');
           controlProductModal(true);
           break;
         case 'edit':
+          this.editProduct = JSON.parse(JSON.stringify(item));
           changeProductModalTitle('編輯產品');
           controlProductModal(true);
           break;
