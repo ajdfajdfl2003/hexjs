@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>第三週主線作業@JavaScript實戰班</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
@@ -130,6 +132,13 @@
                                                type="checkbox">
                                         <label class="form-check-label" for="enabled">是否啟用</label>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <template v-for="index in 5">
+                                        <span :id="'star-' + index" class="fa fa-star"
+                                              :class="index <= retrieveStars() ? 'checked' : ''"
+                                              @click="starComment" :key="index"></span>
+                                    </template>
                                 </div>
                             </div>
                         </div>

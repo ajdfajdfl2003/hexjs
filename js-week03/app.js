@@ -12,7 +12,10 @@ new Vue({
         enabled: false,
         origin_price: 150,
         price: 90,
-        unit: '張'
+        unit: '張',
+        options: {
+          stars: 0
+        }
       },
       {
         id: '68df030a-c2cb-48cb-b5b7-a23c6268f93f',
@@ -24,7 +27,10 @@ new Vue({
         enabled: true,
         origin_price: 150,
         price: 90,
-        unit: '張'
+        unit: '張',
+        options: {
+          stars: 5
+        }
       },
       {
         id: '2be412f7-1b5b-4b01-9981-ac319f01c65f',
@@ -36,12 +42,28 @@ new Vue({
         enabled: true,
         origin_price: 590,
         price: 550,
-        unit: '隻'
+        unit: '隻',
+        options: {
+          stars: 3
+        }
       }
     ],
     editProduct: {},
   },
   methods: {
+    retrieveStars () {
+      return ((this.editProduct.options || {}).stars || 0);
+    },
+    starComment (event) {
+      const star = parseInt(event.target.id.split('-')[1], 10);
+      for (let i = 1; i <= 5; i++) {
+        document.getElementById('star-' + i).classList.remove('checked');
+      }
+      for (let i = 1; i <= event.target.id.split('-')[1]; i++) {
+        document.getElementById('star-' + i).classList.add('checked');
+      }
+      this.editProduct = Object.assign({}, this.editProduct, { options: { stars: star } });
+    },
     deleteProduct () {
       const index = this.products
         .findIndex(item => item.id === this.editProduct.id);
