@@ -15,6 +15,7 @@
         html, body {
             height: 100%;
         }
+
         body {
             display: -ms-flexbox;
             display: -webkit-box;
@@ -34,17 +35,35 @@
 
 <body class="text-center">
 <div id="app" class="container">
-    <form class="form-signin">
+    <form class="form-signin" @submit.prevent="login">
         <h1 class="h3 mb-3 font-weight-normal">請先登入</h1>
         <label for="email" class="sr-only">Email address</label>
-        <input type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
+        <input type="email" id="email" class="form-control"
+               v-model="email" v-focus
+               placeholder="Email address" required autocomplete="email">
         <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" class="form-control" placeholder="Password" required>
+        <input type="password" id="password" class="form-control"
+               v-model="password" placeholder="Password" required autocomplete="password">
         <div class="mb-3"></div>
+        <div class="alert alert-danger" v-if="response.isShow">
+            {{ response.message }}
+        </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         <p class="mt-5 mb-3 text-muted">© 2020-present</p>
     </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="login.js"></script>
 </body>
 
 </html>
