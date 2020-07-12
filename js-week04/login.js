@@ -2,8 +2,10 @@ const loginApiUrl = "https://course-ec-api.hexschool.io/api/auth/login";
 new Vue({
   el: '#app',
   data: {
-    email: '',
-    password: '',
+    request: {
+      email: '',
+      password: ''
+    },
     response: {
       isShow: false,
       message: '',
@@ -11,22 +13,16 @@ new Vue({
   },
   methods: {
     login () {
-      const vm = this;
-      axios.post(loginApiUrl, {
-        email: vm.email,
-        password: vm.password
-      })
+      axios.post(loginApiUrl, this.request)
         .then(res => {
-          vm.response.isShow = false;
-          alert(JSON.stringify(res));
+          this.response.isShow = false;
+          console.log(res.toJSON())
         })
         .catch((error) => {
           if (error.response) {
-            console.debug(error.response.status);
-            console.debug(error.response.data);
             const { message } = error.response.data;
-            vm.response.message = message;
-            vm.response.isShow = true;
+            this.response.message = message;
+            this.response.isShow = true;
           }
         });
     }
