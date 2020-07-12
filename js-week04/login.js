@@ -14,9 +14,9 @@ new Vue({
   methods: {
     login () {
       axios.post(loginApiUrl, this.request)
-        .then(res => {
+        .then(({ data: { token, expired } }) => {
+          document.cookie = `token=${token}; expires=${new Date(expired * 1000)}`;
           this.response.isShow = false;
-          console.log(res.toJSON())
         })
         .catch((error) => {
           if (error.response) {

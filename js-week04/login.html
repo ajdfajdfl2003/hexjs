@@ -44,7 +44,7 @@
         <label for="password" class="sr-only">Password</label>
         <input type="password" id="password" class="form-control"
                v-model="request.password"
-               placeholder="Password" required autocomplete="password">
+               placeholder="Password" required autocomplete="current-password">
         <div class="mb-3"></div>
         <div class="alert alert-danger" v-if="response.isShow">
             {{ response.message }}
