@@ -17,6 +17,7 @@ new Vue({
         .then(({ data: { token, expired } }) => {
           document.cookie = `token=${token}; expires=${new Date(expired * 1000)}`;
           this.response.isShow = false;
+          window.location = 'product.html';
         })
         .catch((error) => {
           if (error.response) {
@@ -26,6 +27,9 @@ new Vue({
           }
         });
     }
+  },
+  beforeCreate () {
+    if (isCookieExists('token')) window.location = 'product.html';
   },
   directives: {
     focus: {
