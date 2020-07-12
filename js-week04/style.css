@@ -4,3 +4,17 @@
     padding: 15px;
     margin: 0 auto;
 }
+
+.close {
+    color: #fff;
+    opacity: 1;
+}
+
+.close:hover {
+    color: #fff;
+    opacity: 0.6;
+}
+
+.checked {
+    color: orange;
+}
