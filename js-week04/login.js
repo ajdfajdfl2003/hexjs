@@ -14,8 +14,9 @@ new Vue({
   methods: {
     login () {
       axios.post(loginApiUrl, this.request)
-        .then(({ data: { token, expired } }) => {
+        .then(({ data: { uuid, token, expired } }) => {
           document.cookie = `token=${token}; expires=${new Date(expired * 1000)}`;
+          document.cookie = `uuid=${uuid}; expires=${new Date(expired * 1000)}`;
           this.response.isShow = false;
           window.location = 'product.html';
         })
@@ -29,7 +30,7 @@ new Vue({
     }
   },
   beforeCreate () {
-    if (isCookieExists('token')) window.location = 'product.html';
+    if (isCookieExists('token')&&isCookieExists('uuid')) window.location = 'product.html';
   },
   directives: {
     focus: {

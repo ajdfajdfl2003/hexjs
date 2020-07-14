@@ -1,7 +1,7 @@
 new Vue({
   el: '#app',
   data: {
-    user: { uuid: '19831eca-3ff8-4cbe-9167-80b24e16783f', token: '' },
+    user: { uuid: '', token: '' },
     products: [],
   },
   methods: {
@@ -18,8 +18,9 @@ new Vue({
     }
   },
   created () {
-    if (!isCookieExists('token')) window.location = 'login.html';
+    if (!isCookieExists('token') || !isCookieExists('uuid')) window.location = 'login.html';
     this.user.token = retrieveCookie('token');
+    this.user.uuid = retrieveCookie('uuid');
     this.showProducts();
   }
 });
