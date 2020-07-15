@@ -57,8 +57,8 @@
             </tbody>
         </table>
     </div>
-    <product-modal :title="productModalTitle" :user="user"
-                   :is-edit="isEdit" @update="updateProduct"></product-modal>
+    <product-modal :title="productModal.title" :user="user"
+                   :is-edit="productModal.isEdit" @update="updateProduct"></product-modal>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

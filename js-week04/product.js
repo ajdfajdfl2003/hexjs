@@ -5,23 +5,23 @@ new Vue({
   data: {
     user: { uuid: '', token: '' },
     products: [],
-    productModalTitle: '',
-    isEdit: false,
-    tempProduct: {}
+    productModal: {
+      title: '',
+      isEdit: false
+    }
   },
   methods: {
     openModal (action, item) {
-      this.tempProduct = JSON.parse(JSON.stringify(item));
       switch (action) {
         case 'create':
-          this.productModalTitle = '新增產品';
-          this.$bus.$emit('showProductModal', true, this.tempProduct);
-          this.isEdit = false;
+          this.productModal.title = '新增產品';
+          this.productModal.isEdit = false;
+          this.$bus.$emit('showProductModal', true, JSON.parse(JSON.stringify(item)));
           break;
         case 'edit':
-          this.productModalTitle = '編輯產品';
-          this.$bus.$emit('showProductModal', true, this.tempProduct);
-          this.isEdit = true;
+          this.productModal.title = '編輯產品';
+          this.productModal.isEdit = true;
+          this.$bus.$emit('showProductModal', true, JSON.parse(JSON.stringify(item)));
           break;
       }
     },
