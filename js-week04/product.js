@@ -11,7 +11,7 @@ new Vue({
     }
   },
   methods: {
-    openModal (action, item) {
+    openModal (action, item = { imageUrl: [] }) {
       switch (action) {
         case 'create':
           this.productModal.title = '新增產品';
@@ -37,8 +37,10 @@ new Vue({
       });
     },
     updateProduct (target) {
-      this.products.splice(this.products.findIndex(product => target.id === product.id),
-        1, target);
+      this.productModal.isEdit ?
+        this.products.splice(this.products.findIndex(product => target.id === product.id),
+          1, target) :
+        this.products.push(target);
     }
   },
   created () {

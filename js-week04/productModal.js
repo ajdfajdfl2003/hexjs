@@ -17,10 +17,10 @@ Vue.component('productModal', {
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="imageUrl">輸入圖片網址</label>
-                                <input id="imageUrl" v-model="tempProduct.imageUrl" type="text" class="form-control"
+                                <input id="imageUrl" v-model="tempProduct.imageUrl[0]" type="text" class="form-control"
                                        placeholder="請輸入圖片連結">
                             </div>
-                            <img class="img-fluid" :src="tempProduct.imageUrl" alt>
+                            <img class="img-fluid" :src="tempProduct.imageUrl[0]" alt>
                         </div>
                         <div class="col-sm-8">
                             <div class="form-group">
@@ -95,7 +95,9 @@ Vue.component('productModal', {
     </div>`,
   data () {
     return {
-      tempProduct: {}
+      tempProduct: {
+        imageUrl: []
+      }
     }
   },
   props: {
@@ -132,10 +134,20 @@ Vue.component('productModal', {
       }).then(({ data: { data } }) => {
         this.$emit('update', data);
         this.controlModal(false);
-      })
+      }).catch(error => {
+        console.error(error);
+      });
     },
     add () {
-      this.controlModal(false);
+      const apiUrl = `${apiUrlPrefix}/${this.user.uuid}/admin/ec/product`;
+      axios.post(apiUrl, this.tempProduct, {
+        headers: { 'authorization': `Bearer ${this.user.token}` }
+      }).then(({ data: { data } }) => {
+        this.$emit('update', data);
+        this.controlModal(false);
+      }).catch(error => {
+        console.error(error);
+      });
     }
   },
   created () {
