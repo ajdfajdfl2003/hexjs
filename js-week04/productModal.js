@@ -17,61 +17,61 @@ Vue.component('productModal', {
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="imageUrl">輸入圖片網址</label>
-                                <input id="imageUrl" v-model="editProduct.imageUrl" type="text" class="form-control"
+                                <input id="imageUrl" v-model="tempProduct.imageUrl" type="text" class="form-control"
                                        placeholder="請輸入圖片連結">
                             </div>
-                            <img class="img-fluid" :src="editProduct.imageUrl" alt>
+                            <img class="img-fluid" :src="tempProduct.imageUrl" alt>
                         </div>
                         <div class="col-sm-8">
                             <div class="form-group">
                                 <label for="title">標題</label>
-                                <input id="title" v-model="editProduct.title" type="text" class="form-control"
+                                <input id="title" v-model="tempProduct.title" type="text" class="form-control"
                                        placeholder="請輸入標題">
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="category">分類</label>
-                                    <input id="category" v-model="editProduct.category" type="text"
+                                    <input id="category" v-model="tempProduct.category" type="text"
                                            class="form-control"
                                            placeholder="請輸入分類">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="price">單位</label>
-                                    <input id="unit" v-model="editProduct.unit" type="unit" class="form-control"
+                                    <input id="unit" v-model="tempProduct.unit" type="unit" class="form-control"
                                            placeholder="請輸入單位">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="origin_price">原價</label>
-                                    <input id="origin_price" v-model="editProduct.origin_price" type="number"
+                                    <input id="origin_price" v-model="tempProduct.origin_price" type="number"
                                            class="form-control"
                                            placeholder="請輸入原價">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="price">售價</label>
-                                    <input id="price" v-model="editProduct.price" type="number" class="form-control"
+                                    <input id="price" v-model="tempProduct.price" type="number" class="form-control"
                                            placeholder="請輸入售價">
                                 </div>
                             </div>
                             <hr>
                             <div class="form-group">
                                 <label for="description">產品描述</label>
-                                <textarea id="description" v-model="editProduct.description" type="text"
+                                <textarea id="description" v-model="tempProduct.description" type="text"
                                           class="form-control"
                                           placeholder="請輸入產品描述">
                                     </textarea>
                             </div>
                             <div class="form-group">
                                 <label for="content">說明內容</label>
-                                <textarea id="content" v-model="editProduct.content" type="text"
+                                <textarea id="content" v-model="tempProduct.content" type="text"
                                           class="form-control"
                                           placeholder="請輸入說明內容">
                                     </textarea>
                             </div>
                             <div class="form-group">
                                 <div class="form-check">
-                                    <input id="enabled" v-model="editProduct.enabled" class="form-check-input"
+                                    <input id="enabled" v-model="tempProduct.enabled" class="form-check-input"
                                            type="checkbox">
                                     <label class="form-check-label" for="enabled">是否啟用</label>
                                 </div>
@@ -88,22 +88,29 @@ Vue.component('productModal', {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" @click="updateProduct">確認</button>
+                    <button type="button" class="btn btn-primary" @click="confirm">確認</button>
                 </div>
             </div>
         </div>
     </div>`,
   data () {
     return {
-      editProduct: {}
+      tempProduct: {}
     }
   },
   props: {
-    title: String
+    title: String,
+    user: Object,
+    isEdit: Boolean
   },
   methods: {
+    controlModal (shouldShow) {
+      shouldShow ?
+        $('#productModal').modal('show') :
+        $('#productModal').modal('hide');
+    },
     retrieveStars () {
-      return ((this.editProduct.options || {}).stars || 0);
+      return ((this.tempProduct.options || {}).stars || 0);
     },
     starComment (event) {
       const star = parseInt(event.target.id.split('-')[1], 10);
@@ -113,30 +120,28 @@ Vue.component('productModal', {
       for (let i = 1; i <= event.target.id.split('-')[1]; i++) {
         document.getElementById('star-' + i).classList.add('checked');
       }
-      this.editProduct = Object.assign({}, this.editProduct, { options: { stars: star } });
+      this.tempProduct = Object.assign({}, this.tempProduct, { options: { stars: star } });
     },
-    updateProduct () {
-      if (Object.keys(this.editProduct).length <= 0) return;
-
-      const index = this.products
-        .findIndex(item => item.id === this.editProduct.id);
-
-      if (index !== -1) {
-        this.$set(this.products, index, JSON.parse(JSON.stringify(this.editProduct)));
-      } else {
-        this.editProduct.id = _uuid();
-        this.products.splice(this.products.length, 0, JSON.parse(JSON.stringify(this.editProduct)));
-      }
-
-      controlProductModal(false);
-      this.editProduct = {};
+    confirm () {
+      this.isEdit ? this.edit() : this.add();
+    },
+    edit () {
+      const apiUrl = `${apiUrlPrefix}/${this.user.uuid}/admin/ec/product/${this.tempProduct.id}`;
+      axios.patch(apiUrl, this.tempProduct, {
+        headers: { 'authorization': `Bearer ${this.user.token}` }
+      }).then(({ data: { data } }) => {
+        this.$emit('update', data);
+        this.controlModal(false);
+      })
+    },
+    add () {
+      this.controlModal(false);
     }
   },
   created () {
-    this.$bus.$on('showProductModal', shouldShow => {
-      shouldShow ?
-        $('#productModal').modal('show') :
-        $('#productModal').modal('hide');
+    this.$bus.$on('showProductModal', (shouldShow, tempProduct) => {
+      this.tempProduct = tempProduct
+      this.controlModal(shouldShow)
     })
   }
 })
