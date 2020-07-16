@@ -8,7 +8,8 @@ new Vue({
     productModal: {
       title: '',
       isEdit: false
-    }
+    },
+    tempProduct: {}
   },
   methods: {
     openModal (action, item = { imageUrl: [] }) {
@@ -22,6 +23,10 @@ new Vue({
           this.productModal.title = '編輯產品';
           this.productModal.isEdit = true;
           this.$bus.$emit('showProductModal', true, JSON.parse(JSON.stringify(item)));
+          break;
+        case 'delete':
+          this.tempProduct = JSON.parse(JSON.stringify(item));
+          this.$bus.$emit('showDeleteProductModal', true, this.tempProduct)
           break;
       }
     },
@@ -38,9 +43,11 @@ new Vue({
     },
     updateProduct (target) {
       this.productModal.isEdit ?
-        this.products.splice(this.products.findIndex(product => target.id === product.id),
-          1, target) :
+        this.products.splice(this.products.findIndex(product => target.id === product.id), 1, target) :
         this.products.push(target);
+    },
+    deleteProduct (targetId) {
+      this.products.splice(this.products.findIndex(product => targetId === product.id), 1);
     }
   },
   created () {

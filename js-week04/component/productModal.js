@@ -152,8 +152,8 @@ Vue.component('productModal', {
   },
   created () {
     this.$bus.$on('showProductModal', (shouldShow, tempProduct) => {
-      this.tempProduct = tempProduct
-      this.controlModal(shouldShow)
+      this.tempProduct = tempProduct;
+      this.controlModal(shouldShow);
     })
   }
 });
