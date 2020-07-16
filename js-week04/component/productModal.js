@@ -156,4 +156,4 @@ Vue.component('productModal', {
       this.controlModal(shouldShow)
     })
   }
-})
+});
