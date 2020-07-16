@@ -143,12 +143,24 @@ Vue.component('productModal', {
       }).catch(error => {
         console.error(error);
       });
+    },
+    retrieve (productId) {
+      const apiUrl = `${apiUrlPrefix}/${this.user.uuid}/admin/ec/product/${productId}`;
+      axios.get(apiUrl, {
+        headers: { 'authorization': `Bearer ${this.user.token}` }
+      }).then(({ data: { data, meta } }) => {
+        this.tempProduct = data;
+        controlModal(true, '#productModal');
+      }).catch(error => {
+        console.error(error);
+      });
     }
   },
   created () {
     this.$bus.$on('showProductModal', (shouldShow, tempProduct) => {
       this.tempProduct = tempProduct;
       controlModal(shouldShow, '#productModal');
-    })
+    });
+    this.$bus.$on('editProduct', productId => this.retrieve(productId));
   }
 });

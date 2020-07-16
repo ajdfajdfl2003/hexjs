@@ -22,7 +22,7 @@ new Vue({
         case 'edit':
           this.productModal.title = '編輯產品';
           this.productModal.isEdit = true;
-          this.$bus.$emit('showProductModal', true, JSON.parse(JSON.stringify(item)));
+          this.$bus.$emit('editProduct', item.id);
           break;
         case 'delete':
           this.tempProduct = JSON.parse(JSON.stringify(item));
