@@ -17,7 +17,7 @@ new Vue({
         case 'create':
           this.productModal.title = '新增產品';
           this.productModal.isEdit = false;
-          this.$bus.$emit('showProductModal', true, JSON.parse(JSON.stringify(item)));
+          this.$bus.$emit('showProduct');
           break;
         case 'edit':
           this.productModal.title = '編輯產品';

@@ -95,6 +95,7 @@ Vue.component('productModal', {
     </div>`,
   data () {
     return {
+      apiUrl: `${apiUrlPrefix}/${this.user.uuid}/admin/ec/product`,
       tempProduct: {
         imageUrl: []
       }
@@ -123,8 +124,7 @@ Vue.component('productModal', {
       this.isEdit ? this.edit() : this.add();
     },
     edit () {
-      const apiUrl = `${apiUrlPrefix}/${this.user.uuid}/admin/ec/product/${this.tempProduct.id}`;
-      axios.patch(apiUrl, this.tempProduct, {
+      axios.patch(`${this.apiUrl}/${this.tempProduct.id}`, this.tempProduct, {
         headers: { 'authorization': `Bearer ${this.user.token}` }
       }).then(({ data: { data } }) => {
         this.$emit('update', data);
@@ -134,8 +134,7 @@ Vue.component('productModal', {
       });
     },
     add () {
-      const apiUrl = `${apiUrlPrefix}/${this.user.uuid}/admin/ec/product`;
-      axios.post(apiUrl, this.tempProduct, {
+      axios.post(this.apiUrl, this.tempProduct, {
         headers: { 'authorization': `Bearer ${this.user.token}` }
       }).then(({ data: { data } }) => {
         this.$emit('update', data);
@@ -145,8 +144,7 @@ Vue.component('productModal', {
       });
     },
     retrieve (productId) {
-      const apiUrl = `${apiUrlPrefix}/${this.user.uuid}/admin/ec/product/${productId}`;
-      axios.get(apiUrl, {
+      axios.get(`${this.apiUrl}/${productId}`, {
         headers: { 'authorization': `Bearer ${this.user.token}` }
       }).then(({ data: { data, meta } }) => {
         this.tempProduct = data;
@@ -157,9 +155,9 @@ Vue.component('productModal', {
     }
   },
   created () {
-    this.$bus.$on('showProductModal', (shouldShow, tempProduct) => {
-      this.tempProduct = tempProduct;
-      controlModal(shouldShow, '#productModal');
+    this.$bus.$on('showProduct', () => {
+      this.tempProduct = { imageUrl: [] };
+      controlModal(true, '#productModal');
     });
     this.$bus.$on('editProduct', productId => this.retrieve(productId));
   }
