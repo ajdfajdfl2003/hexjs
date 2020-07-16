@@ -36,17 +36,12 @@ Vue.component('delProductModal', {
     user: Object
   },
   methods: {
-    controlModal (shouldShow) {
-      shouldShow ?
-        $('#delProductModal').modal('show') :
-        $('#delProductModal').modal('hide');
-    },
     deleteProduct () {
       const apiUrl = `${apiUrlPrefix}/${this.user.uuid}/admin/ec/product/${this.productId}`;
       axios.delete(apiUrl, { headers: { 'authorization': `Bearer ${this.user.token}` } })
         .then(res => {
           this.$emit('delete', this.productId);
-          this.controlModal(false);
+          controlModal(false, '#delProductModal');
         }).catch(error => {
         console.error(error);
       });
@@ -56,7 +51,7 @@ Vue.component('delProductModal', {
     this.$bus.$on('showDeleteProductModal', (shouldShow, tempProduct) => {
       this.productId = tempProduct.id;
       this.productTitle = tempProduct.title;
-      this.controlModal(shouldShow)
+      controlModal(shouldShow, '#delProductModal')
     })
   }
 });

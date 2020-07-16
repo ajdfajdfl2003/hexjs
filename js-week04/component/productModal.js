@@ -106,11 +106,6 @@ Vue.component('productModal', {
     isEdit: Boolean
   },
   methods: {
-    controlModal (shouldShow) {
-      shouldShow ?
-        $('#productModal').modal('show') :
-        $('#productModal').modal('hide');
-    },
     retrieveStars () {
       return ((this.tempProduct.options || {}).stars || 0);
     },
@@ -133,7 +128,7 @@ Vue.component('productModal', {
         headers: { 'authorization': `Bearer ${this.user.token}` }
       }).then(({ data: { data } }) => {
         this.$emit('update', data);
-        this.controlModal(false);
+        controlModal(false, '#productModal');
       }).catch(error => {
         console.error(error);
       });
@@ -144,7 +139,7 @@ Vue.component('productModal', {
         headers: { 'authorization': `Bearer ${this.user.token}` }
       }).then(({ data: { data } }) => {
         this.$emit('update', data);
-        this.controlModal(false);
+        controlModal(false, '#productModal');
       }).catch(error => {
         console.error(error);
       });
@@ -153,7 +148,7 @@ Vue.component('productModal', {
   created () {
     this.$bus.$on('showProductModal', (shouldShow, tempProduct) => {
       this.tempProduct = tempProduct;
-      this.controlModal(shouldShow);
+      controlModal(shouldShow, '#productModal');
     })
   }
 });

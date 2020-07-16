@@ -11,3 +11,7 @@ function retrieveCookie (name) {
     .find(row => row.startsWith(name))
     .split('=')[1];
 }
+
+function controlModal (shouldShow, target) {
+  shouldShow ? $(target).modal('show') : $(target).modal('hide');
+}
