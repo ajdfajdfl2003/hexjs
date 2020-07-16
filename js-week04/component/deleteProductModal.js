@@ -48,7 +48,7 @@ Vue.component('delProductModal', {
     }
   },
   created () {
-    this.$bus.$on('showDeleteProductModal', (shouldShow, tempProduct) => {
+    this.$bus.$on('show-delete-product-modal', (shouldShow, tempProduct) => {
       this.productId = tempProduct.id;
       this.productTitle = tempProduct.title;
       controlModal(shouldShow, '#delProductModal')

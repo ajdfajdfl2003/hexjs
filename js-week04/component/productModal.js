@@ -155,10 +155,10 @@ Vue.component('productModal', {
     }
   },
   created () {
-    this.$bus.$on('showProduct', () => {
+    this.$bus.$on('show-product', () => {
       this.tempProduct = { imageUrl: [] };
       controlModal(true, '#productModal');
     });
-    this.$bus.$on('editProduct', productId => this.retrieve(productId));
+    this.$bus.$on('edit-product', productId => this.retrieve(productId));
   }
 });

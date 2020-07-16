@@ -17,16 +17,16 @@ new Vue({
         case 'create':
           this.productModal.title = '新增產品';
           this.productModal.isEdit = false;
-          this.$bus.$emit('showProduct');
+          this.$bus.$emit('show-product');
           break;
         case 'edit':
           this.productModal.title = '編輯產品';
           this.productModal.isEdit = true;
-          this.$bus.$emit('editProduct', item.id);
+          this.$bus.$emit('edit-product', item.id);
           break;
         case 'delete':
           this.tempProduct = JSON.parse(JSON.stringify(item));
-          this.$bus.$emit('showDeleteProductModal', true, this.tempProduct)
+          this.$bus.$emit('show-delete-product-modal', true, this.tempProduct)
           break;
       }
     },
