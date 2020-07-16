@@ -5,6 +5,7 @@ new Vue({
   data: {
     user: { uuid: '', token: '' },
     products: [],
+    pagination: { current_page: 1 },
     productModal: {
       title: '',
       isEdit: false
@@ -12,7 +13,7 @@ new Vue({
     tempProduct: {}
   },
   methods: {
-    openModal (action, item = { imageUrl: [] }) {
+    openModal (action, item) {
       switch (action) {
         case 'create':
           this.productModal.title = '新增產品';
@@ -30,13 +31,14 @@ new Vue({
           break;
       }
     },
-    showProducts (page = 0) {
+    showProducts (page) {
       const apiUrl = `${apiUrlPrefix}/${this.user.uuid}/admin/ec/products`;
       axios.get(apiUrl, {
         headers: { 'authorization': `Bearer ${this.user.token}` },
         params: { page }
-      }).then(({ data: { data, meta } }) => {
+      }).then(({ data: { data, meta: { pagination } } }) => {
         this.products = data;
+        this.pagination = pagination;
       }).catch(error => {
         console.error(error);
       });
@@ -54,6 +56,6 @@ new Vue({
     if (!isCookieExists('token') || !isCookieExists('uuid')) window.location = 'login.html';
     this.user.token = retrieveCookie('token');
     this.user.uuid = retrieveCookie('uuid');
-    this.showProducts();
+    this.showProducts(this.pagination.current_page);
   }
 });

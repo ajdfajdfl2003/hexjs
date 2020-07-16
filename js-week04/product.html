@@ -57,6 +57,7 @@
             </tbody>
         </table>
     </div>
+    <pagination :pagination="pagination" @change-page="showProducts"></pagination>
     <product-modal :title="productModal.title" :user="user"
                    :is-edit="productModal.isEdit" @update="updateProduct"></product-modal>
     <del-product-modal :user="user" @delete="deleteProduct"></del-product-modal>
@@ -75,6 +76,7 @@
 <script src="common.js"></script>
 <script src="component/productModal.js"></script>
 <script src="component/deleteProductModal.js"></script>
+<script src="component/pagination.js"></script>
 <script src="product.js"></script>
 </body>
 
