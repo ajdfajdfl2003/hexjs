@@ -1,0 +1,12 @@
+.category-block li:hover {
+    background-color: rgba(31, 87, 94, 0.5);
+}
+
+.category-block li:hover a {
+    color: #ffffff;
+}
+
+.category-block li a {
+    text-decoration: none;
+    color: #343a40;
+}
