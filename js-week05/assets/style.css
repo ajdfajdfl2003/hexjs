@@ -1,4 +1,4 @@
-@media screen and (max-width: 1199px) and (min-width: 992px){
+@media screen and (max-width: 1199px) and (min-width: 992px) {
     #category {
         display: none !important;
     }
@@ -6,6 +6,15 @@
 
 .category-block li:hover {
     background-color: rgba(31, 87, 94, 0.5);
+}
+
+.category-block li.active {
+    background-color: rgba(31, 87, 94, 0.5);
+    border-style: none;
+}
+
+.category-block li.active a {
+    color: white;
 }
 
 .category-block li:hover a {
