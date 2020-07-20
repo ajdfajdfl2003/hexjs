@@ -2,7 +2,9 @@ Vue.component('productList', {
   template: ` <div id="product-list" class="row my-4">
         <div class="col-12 col-lg-2 mb-4">
             <div class="card bg-light">
-                <div class="card-header bg-info text-white text-uppercase p-3"><i class="fa fa-list"></i> Categories
+                <div class="card-header bg-info text-white text-uppercase p-3">
+                    <i class="fa fa-list"></i>
+                    <span id="category">Categories</span>
                 </div>
                 <ul class="list-group category-block">
                     <li v-for="item in categories" :key="item" 
