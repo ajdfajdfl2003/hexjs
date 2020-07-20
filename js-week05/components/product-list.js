@@ -50,7 +50,7 @@ Vue.component('productList', {
   },
   methods: {
     applyCategory (item) {
-      if (this.currentCategory === '') {
+      if (this.currentCategory === '' || this.currentCategory !== item) {
         this.currentCategory = item;
       } else {
         this.currentCategory = '';

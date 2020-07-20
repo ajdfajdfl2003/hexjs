@@ -1,11 +1,9 @@
-@media screen and (max-width: 1199px) and (min-width: 992px) {
-    #category {
-        display: none !important;
-    }
-}
-
 .category-block li:hover {
     background-color: rgba(31, 87, 94, 0.5);
+}
+
+.category-block li:hover a {
+    color: #ffffff;
 }
 
 .category-block li.active {
@@ -17,11 +15,30 @@
     color: white;
 }
 
-.category-block li:hover a {
-    color: #ffffff;
-}
-
 .category-block li a {
     text-decoration: none;
     color: #343a40;
+}
+
+@media only screen and (min-device-width: 720px) and (max-device-width: 1280px) {
+    #category {
+        display: none !important;
+    }
+
+    .category-block li:hover {
+        background-color: white;
+    }
+
+    .category-block li:hover a {
+        color: #343a40;
+    }
+
+    .category-block li.active {
+        background-color: rgba(31, 87, 94, 0.5);
+        border-style: none;
+    }
+
+    .category-block li.active a {
+        color: white;
+    }
 }
