@@ -1,132 +1,31 @@
 Vue.component('productList', {
   template: ` <div id="product-list" class="row my-4">
-        <div class="col-12 col-lg-3 mb-4">
+        <div class="col-12 col-lg-2 mb-4">
             <div class="card bg-light">
                 <div class="card-header bg-info text-white text-uppercase p-3"><i class="fa fa-list"></i> Categories
                 </div>
                 <ul class="list-group category-block">
-                    <li class="list-group-item"><a href="#">Cras justo odio</a></li>
-                    <li class="list-group-item"><a href="#">Dapibus ac facilisis in</a></li>
-                    <li class="list-group-item"><a href="#">Morbi leo risus</a></li>
-                    <li class="list-group-item"><a href="#">Porta ac consectetur ac</a></li>
-                    <li class="list-group-item"><a href="#">Vestibulum at eros</a></li>
+                    <li v-for="item in categories" :key="item" 
+                        class="list-group-item">
+                        <a href="#">{{ item }}</a>
+                    </li>
                 </ul>
             </div>
         </div>
-        <div class="col-12 col-lg-9">
+        <div class="col-12 col-lg-10">
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-6 mb-2">
+                <div v-for="product in products" :key="product.id"
+                    class="col-12 col-md-6 col-lg-4 mb-2">
                     <div class="card">
                         <img class="card-img-top"
-                             src="https://dummyimage.com/600x400/55595c/fff"
-                             alt="Card image cap">
+                             :src="product.imageUrl[0]"
+                             :alt="product.title">
                         <div class="card-body">
-                            <h4 class="card-title text-success">Product title</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of the card's content.</p>
+                            <h4 class="card-title text-success">{{ product.title }}</h4>
+                            <p class="card-text">{{ product.content }}</p>
                             <div class="d-flex justify-content-between align-items-baseline"><!---->
-                                <del class="h6 text-secondary">原價 20000 元</del>
-                                <div class="h5 text-dark">現在只要 20000 元</div>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <button type="button" class="btn btn-light">More</button>
-                            <button type="button" class="btn btn-info ml-auto">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-6 mb-2">
-                    <div class="card">
-                        <img class="card-img-top"
-                             src="https://dummyimage.com/600x400/55595c/fff"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title text-success">Product title</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of the card's content.</p>
-                            <div class="d-flex justify-content-between align-items-baseline"><!---->
-                                <del class="h6 text-secondary">原價 20000 元</del>
-                                <div class="h5 text-dark">現在只要 20000 元</div>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <button type="button" class="btn btn-light">More</button>
-                            <button type="button" class="btn btn-info ml-auto">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-6 mb-2">
-                    <div class="card">
-                        <img class="card-img-top"
-                             src="https://dummyimage.com/600x400/55595c/fff"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title text-success">Product title</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of the card's content.</p>
-                            <div class="d-flex justify-content-between align-items-baseline"><!---->
-                                <del class="h6 text-secondary">原價 20000 元</del>
-                                <div class="h5 text-dark">現在只要 20000 元</div>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <button type="button" class="btn btn-light">More</button>
-                            <button type="button" class="btn btn-info ml-auto">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-6 mb-2">
-                    <div class="card">
-                        <img class="card-img-top"
-                             src="https://dummyimage.com/600x400/55595c/fff"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title text-success">Product title</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of the card's content.</p>
-                            <div class="d-flex justify-content-between align-items-baseline"><!---->
-                                <del class="h6 text-secondary">原價 20000 元</del>
-                                <div class="h5 text-dark">現在只要 20000 元</div>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <button type="button" class="btn btn-light">More</button>
-                            <button type="button" class="btn btn-info ml-auto">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-6 mb-2">
-                    <div class="card">
-                        <img class="card-img-top"
-                             src="https://dummyimage.com/600x400/55595c/fff"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title text-success">Product title</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of the card's content.</p>
-                            <div class="d-flex justify-content-between align-items-baseline"><!---->
-                                <del class="h6 text-secondary">原價 20000 元</del>
-                                <div class="h5 text-dark">現在只要 20000 元</div>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <button type="button" class="btn btn-light">More</button>
-                            <button type="button" class="btn btn-info ml-auto">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-6 mb-2">
-                    <div class="card">
-                        <img class="card-img-top"
-                             src="https://dummyimage.com/600x400/55595c/fff"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title text-success">Product title</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of the card's content.</p>
-                            <div class="d-flex justify-content-between align-items-baseline"><!---->
-                                <del class="h6 text-secondary">原價 20000 元</del>
-                                <div class="h5 text-dark">現在只要 20000 元</div>
+                                <del class="h6 text-secondary">原價 {{ product.origin_price }} 元</del>
+                                <div class="h5 text-dark">現在只要 {{ product.price }} 元</div>
                             </div>
                         </div>
                         <div class="card-footer d-flex">
@@ -137,5 +36,24 @@ Vue.component('productList', {
                 </div>
             </div>
         </div>
-    </div>`
-})
+    </div>`,
+  data () {
+    return {
+      categories: [],
+      products: []
+    }
+  },
+  methods: {
+    retrieveProducts (page = 0) {
+      axios.get(`${apiUrlPrefix}/products`, {
+        params: { page }
+      }).then(({ data: { data } }) => {
+        this.categories = new Set(data.map(product => product.category))
+        this.products = data;
+      });
+    },
+  },
+  created () {
+    this.retrieveProducts();
+  }
+});
