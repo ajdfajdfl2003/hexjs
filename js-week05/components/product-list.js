@@ -21,7 +21,8 @@ Vue.component('productList', {
                              :src="product.imageUrl[0]"
                              :alt="product.title">
                         <div class="card-body">
-                            <h4 class="card-title text-success">{{ product.title }}</h4>
+                            <span class="badge badge-pill badge-secondary float-right ml-2">{{ product.category }}</span>
+                            <h5 class="card-title text-success">{{ product.title }}</h5>
                             <p class="card-text">{{ product.content }}</p>
                             <div class="d-flex justify-content-between align-items-baseline"><!---->
                                 <del class="h6 text-secondary">原價 {{ product.origin_price }} 元</del>
