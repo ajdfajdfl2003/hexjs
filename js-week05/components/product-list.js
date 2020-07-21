@@ -34,7 +34,9 @@ Vue.component('productList', {
                             </div>
                         </div>
                         <div class="card-footer d-flex">
-                            <button type="button" class="btn btn-light" @click.prevent="openModal(product)">More</button>
+                            <div style="position: relative" :ref="'moreDetail'+product.id">
+                                <button type="button" class="btn btn-light" @click.prevent="openModal(product)">More</button>
+                            </div>
                             <button type="button" class="btn btn-info ml-auto">Add to cart</button>
                         </div>
                     </div>
@@ -96,17 +98,25 @@ Vue.component('productList', {
       }
     },
     retrieveProducts (page = 0) {
+      const loader = this.$loading.show({ isFullPage: true });
       axios.get(`${apiUrlPrefix}/products`, {
         params: { page }
       }).then(({ data: { data } }) => {
         this.categories = new Set(data.map(product => product.category))
         this.products = data;
+        loader.hide();
       });
     },
     retrieveProductDetail (id) {
+      const loader = this.$loading.show({
+        isFullPage: false,
+        loader: 'dots',
+        container: this.$refs['moreDetail' + id][0]
+      })
       axios.get(`${apiUrlPrefix}/product/${id}`)
         .then(({ data: { data } }) => {
           this.tempProduct = data;
+          loader.hide();
           $(this.$refs.moreModal).modal('show');
         });
     }
