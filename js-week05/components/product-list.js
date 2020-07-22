@@ -35,9 +35,9 @@ Vue.component('productList', {
                         </div>
                         <div class="card-footer d-flex">
                             <div style="position: relative" :ref="'moreDetail'+product.id">
-                                <button type="button" class="btn btn-light" @click.prevent="openModal(product)">More</button>
+                                <button type="button" class="btn btn-light" @click.prevent="openModal(product.id)">More</button>
                             </div>
-                            <button type="button" class="btn btn-info ml-auto">Add to cart</button>
+                            <button type="button" class="btn btn-info ml-auto" @click.prevent="addToCart(product)">Add to cart</button>
                         </div>
                     </div>
                 </div>
@@ -63,14 +63,14 @@ Vue.component('productList', {
                                 <div class="h5 text-dark">現在只要 {{ tempProduct.price }} 元</div>
                             </div>
                         </div>
-                        <select class="form-control mt-3" v-model="totalOfTempProduct">
+                        <select class="form-control mt-3" v-model="tempProduct.count">
                             <option selected disabled value="0">Open this select menu</option>
                             <option v-for="i in 10" :value="i" :key="i">選購 {{ i }} {{ tempProduct.unit }}</option>
                         </select>
                     </div>
                     <div class="modal-footer">
-                        <div class="text-danger text-nowrap mr-3" v-if="0!==totalOfTempProduct">小計 <strong>{{ sumOfTempProduct }}</strong> 元</div>
-                        <button type="button" class="btn btn-info">Add to cart</button>
+                        <div class="text-danger text-nowrap mr-3" v-if="0!==tempProduct.count">小計 <strong>{{ sumOfTempProduct }}</strong> 元</div>
+                        <button type="button" class="btn btn-info" @click.prevent="addToCart(tempProduct)">Add to cart</button>
                     </div>
                 </div>
             </div>
@@ -81,13 +81,16 @@ Vue.component('productList', {
       categories: [],
       currentCategory: '',
       products: [],
-      tempProduct: {},
-      totalOfTempProduct: 0
+      tempProduct: {}
     }
   },
   methods: {
-    openModal ({ id }) {
-      this.totalOfTempProduct = 0;
+    addToCart (product) {
+      if (0 === product.count) return;
+      this.$bus.$emit('add to cart', product)
+      $(this.$refs.moreModal).modal('hide');
+    },
+    openModal (id) {
       this.retrieveProductDetail(id);
     },
     applyCategory (item) {
@@ -116,6 +119,7 @@ Vue.component('productList', {
       axios.get(`${apiUrlPrefix}/product/${id}`)
         .then(({ data: { data } }) => {
           this.tempProduct = data;
+          this.$set(this.tempProduct, 'count', 0);
           loader.hide();
           $(this.$refs.moreModal).modal('show');
         });
@@ -130,7 +134,7 @@ Vue.component('productList', {
       return this.products.filter(item => this.currentCategory === item.category);
     },
     sumOfTempProduct () {
-      return this.tempProduct.price * this.totalOfTempProduct;
+      return this.tempProduct.price * this.tempProduct.count;
     }
   }
 });
