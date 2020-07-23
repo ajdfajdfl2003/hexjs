@@ -20,6 +20,12 @@
     color: #343a40;
 }
 
+select.form-control {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
 @media only screen and (min-device-width: 720px) and (max-device-width: 1280px) {
     #category {
         display: none !important;
