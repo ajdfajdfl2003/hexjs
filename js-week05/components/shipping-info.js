@@ -15,7 +15,7 @@ Vue.component('shippingInfo', {
                     <input id="email" type="email" name="Email" class="form-control" :class="classes" v-model="shipper.email">
                     <span class="invalid-feedback">{{ errors[0] }}</span>
                 </validation-provider>
-                <validation-provider rules="required|min:8" class="form-group" tag="div"
+                <validation-provider rules="required|min:9" class="form-group" tag="div"
                                      v-slot="{ errors, classes }">
                     <label for="tel">電話</label>
                     <input id="tel" type="tel" name="電話" class="form-control" :class="classes" v-model="shipper.tel">

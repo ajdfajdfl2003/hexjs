@@ -1,4 +1,4 @@
-const apiUrlPrefix = 'https://course-ec-api.hexschool.io/api/19831eca-3ff8-4cbe-9167-80b24e16783f/ec';
+import zh_TW from './locales/zh_TW.js';
 
 Vue.prototype.$bus = new Vue();
 
@@ -13,6 +13,8 @@ VeeValidate.configure({
     invalid: 'is-invalid',
   }
 });
+
+VeeValidate.localize('tw', zh_TW);
 
 new Vue({
   el: '#app',
