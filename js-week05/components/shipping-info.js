@@ -2,7 +2,7 @@ Vue.component('shippingInfo', {
   template: `
     <div class="my-5 row justify-content-center">
         <validation-observer v-slot="{ invalid }" class="col-md-6">
-            <form @submit.prevent="">
+            <form @submit.prevent="confirm">
                 <validation-provider rules="required" class="form-group" tag="div"
                                      v-slot="{ errors, classes }">
                     <label for="name">收件人姓名</label>
@@ -43,7 +43,7 @@ Vue.component('shippingInfo', {
                 </validation-provider>
                 <div class="form-group">
                     <label for="message">留言</label>
-                    <textarea id="message" cols="30" rows="3" class="form-control"></textarea>
+                    <textarea id="message" cols="30" rows="3" class="form-control" v-model="shipper.comment"></textarea>
                 </div>
                 <div class="text-right">
                     <button type="submit" class="btn btn-info" :disabled="invalid">送出表單</button>
@@ -62,6 +62,16 @@ Vue.component('shippingInfo', {
         payment: '',
         comment: ''
       }
+    }
+  },
+  methods: {
+    confirm () {
+      const loader = this.$loading.show({ isFullPage: true, loader: 'dots' });
+      setTimeout(() => {
+        loader.hide();
+        this.$bus.$emit('confirm');
+      }, 2000)
+
     }
   }
 });
