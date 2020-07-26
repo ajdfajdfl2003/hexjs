@@ -51,6 +51,14 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/404',
+    component: () => import('../views/error/404'),
+  },
+  {
+    path: '*',
+    redirect: '/404',
+  },
 ];
 
 const router = new VueRouter({
