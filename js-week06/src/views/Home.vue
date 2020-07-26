@@ -6,7 +6,8 @@
       <router-link to="/cart">購物車</router-link> |
       <router-link to="/payment">結帳</router-link> |
       <router-link to="/payment/finish">結帳完成</router-link> |
-      <router-link to="/about">關於我們</router-link>
+      <router-link to="/about">關於我們</router-link> |
+      <router-link to="/dashboard">後台 without login</router-link>
     </div>
     <router-view/>
   </div>

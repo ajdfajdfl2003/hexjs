@@ -29,7 +29,28 @@ const routes = [
       },
     ],
   },
-
+  {
+    path: '/dashboard',
+    component: () => import('../views/dashboard/Dashboard'),
+    children: [
+      {
+        path: '',
+        component: () => import('../views/dashboard/Products'),
+      }, {
+        path: 'coupons',
+        component: () => import('../views/dashboard/Coupons'),
+      }, {
+        path: 'order-list',
+        component: () => import('../views/dashboard/OrderList'),
+      }, {
+        path: 'photos',
+        component: () => import('../views/dashboard/Photos'),
+      }, {
+        path: 'logout',
+        component: () => import('../views/dashboard/Logout'),
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({
