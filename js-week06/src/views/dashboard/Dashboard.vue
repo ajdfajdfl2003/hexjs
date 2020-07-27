@@ -1,6 +1,6 @@
 <template>
    <div class="dashboard">
-     <div id="nav">
+     <div class="nav">
        <router-link to="/dashboard">後台首頁</router-link> |
        <router-link to="/dashboard/coupons">優惠券列表</router-link> |
        <router-link to="/dashboard/order-list">訂單列表</router-link> |
