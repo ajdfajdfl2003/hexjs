@@ -1,26 +1,23 @@
 <template>
-  <div class="home section">
-    <div class="header-section section">
-      <div class="header-bottom section stick">
-        <div class="container">
-          <div class="row">
-            <div class="header-bottom-wrapper text-center col">
-              <nav ref="navbarHome" class="main-menu" style="display: block;">
-                <ul>
-                  <li class="active"><router-link to="/">首頁</router-link></li>
-                  <li><router-link to="/product/123">產品頁面</router-link></li>
-                  <li><router-link to="/cart">購物車</router-link></li>
-                  <li><router-link to="/payment">結帳</router-link></li>
-                  <li><router-link to="/payment/finish">結帳完成</router-link></li>
-                  <li><router-link to="/about">關於我們</router-link></li>
-                  <li><router-link to="/dashboard">後台 without login</router-link></li>
-                </ul>
-              </nav>
-            </div>
-          </div>
+  <div class="home">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+              data-target="#navbarHome" aria-controls="navbarHome"
+              aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarHome">
+        <div class="navbar-nav">
+          <router-link to="/" class="nav-item nav-link">首頁</router-link>
+            <router-link to="/product/123" class="nav-item nav-link">產品頁面</router-link>
+            <router-link to="/cart" class="nav-item nav-link">購物車</router-link>
+            <router-link to="/payment" class="nav-item nav-link">結帳</router-link>
+            <router-link to="/payment/finish" class="nav-item nav-link">結帳完成</router-link>
+            <router-link to="/about" class="nav-item nav-link">關於我們</router-link>
+            <router-link to="/dashboard" class="nav-item nav-link">後台 without login</router-link>
         </div>
       </div>
-    </div>
+    </nav>
     <router-view/>
   </div>
 </template>
@@ -40,18 +37,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-  @import "../assets/css/style.css";
-
-  .text-center {
-    text-align: center !important;
-  }
-
-  .col {
-    flex-basis: 0;
-    flex-grow: 1;
-    min-width: 0;
-    max-width: 100%;
-  }
-</style>
