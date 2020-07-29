@@ -12,8 +12,8 @@
            <router-link to="/dashboard/coupons" class="nav-item nav-link">優惠券列表</router-link>
            <router-link to="/dashboard/order-list" class="nav-item nav-link">訂單列表</router-link>
            <router-link to="/dashboard/photos" class="nav-item nav-link">圖片儲存列表</router-link>
-           <router-link to="/" class="nav-item nav-link">回到前台</router-link>
            <router-link to="/dashboard/logout" class="nav-item nav-link">登出</router-link>
+           <router-link to="/" class="nav-item nav-link">回到前台</router-link>
          </div>
        </div>
      </nav>
