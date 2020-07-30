@@ -1,5 +1,5 @@
 <template>
-   <div class="dashboard">
+   <div class="dashboard container-fluid">
      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
        <button class="navbar-toggler" type="button" data-toggle="collapse"
                data-target="#navbarDashboard" aria-controls="navbarDashboard"
