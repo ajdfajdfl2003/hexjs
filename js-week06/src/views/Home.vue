@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home container-fluid">
     <nav class="navbar navbar-expand-md navbar-dark bg-info">
       <button class="navbar-toggler" type="button" data-toggle="collapse"
               data-target="#navbarHome" aria-controls="navbarHome"
@@ -14,7 +14,7 @@
             <router-link to="/payment" class="nav-item nav-link">結帳</router-link>
             <router-link to="/payment/finish" class="nav-item nav-link">結帳完成</router-link>
             <router-link to="/about" class="nav-item nav-link">關於我們</router-link>
-            <router-link to="/dashboard" class="nav-item nav-link">後台 without login</router-link>
+            <router-link to="/login" class="nav-item nav-link">登入</router-link>
         </div>
       </div>
     </nav>
@@ -24,11 +24,11 @@
 
 <script>
 
-import utils from './mixins/utils';
+import handleActive from './mixins/handleActive';
 
 export default {
   name: 'Home',
-  mixins: [utils],
+  mixins: [handleActive],
   mounted() {
     this.handleAddActive();
   },

@@ -5,6 +5,14 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: '/404',
+    component: () => import('../views/error/404'),
+  },
+  {
+    path: '/login',
+    component: () => import('../views/Login'),
+  },
+  {
     path: '/',
     component: () => import('../views/Home'),
     children: [
@@ -50,10 +58,6 @@ const routes = [
         component: () => import('../views/dashboard/Logout'),
       },
     ],
-  },
-  {
-    path: '/404',
-    component: () => import('../views/error/404'),
   },
   {
     path: '*',

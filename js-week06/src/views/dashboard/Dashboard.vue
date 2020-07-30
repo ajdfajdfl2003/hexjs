@@ -22,16 +22,28 @@
 </template>
 
 <script>
-import utils from '../mixins/utils';
+import handleActive from '../mixins/handleActive';
+import handleCookie from '../mixins/handleCookie';
 
 export default {
   name: 'dashboard',
-  mixins: [utils],
+  mixins: [handleActive, handleCookie],
+  methods: {
+    handleUnAuthorized() {
+      if (!this.isValid()) {
+        this.$router.push('/login');
+      }
+    },
+  },
   mounted() {
+    this.handleUnAuthorized();
     this.handleAddActive();
   },
   updated() {
     this.handleAddActive();
+  },
+  beforeMount() {
+    this.handleUnAuthorized();
   },
 };
 </script>
