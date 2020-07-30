@@ -32,52 +32,15 @@
               </div>
             </div>
             <div class="card-footer d-flex">
-              <div style="position: relative" :ref="'moreDetail'+product.id">
-                <button type="button" class="btn btn-light" @click.prevent="openModal(product.id)">
+              <div style="position: relative">
+                <button type="button" class="btn btn-light" @click.prevent="">
                   More
                 </button>
               </div>
               <button type="button" class="btn btn-info ml-auto"
-                      @click.prevent="addToCart(product)">Add to cart
+                      @click.prevent="">Add to cart
               </button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" ref="moreModal" tabindex="-1" role="dialog"
-         aria-labelledby="moreModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" ref="moreModalLabel">{{ tempProduct.title }}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <blockquote class="blockquote">
-              <p class="mb-0">{{ tempProduct.content }}</p>
-              <p class="mb-1 text-muted"><small>{{ tempProduct.description }}</small></p>
-            </blockquote>
-            <div>
-              <div class="d-flex justify-content-between align-items-baseline">
-                <del class="h6 text-secondary">原價 {{ tempProduct.origin_price }} 元</del>
-                <div class="h5 text-dark">現在只要 {{ tempProduct.price }} 元</div>
-              </div>
-            </div>
-            <select class="form-control mt-3" v-model="tempProduct.count">
-              <option selected disabled value="0">Open this select menu</option>
-              <option v-for="i in 10" :value="i" :key="i">選購 {{ i }} {{ tempProduct.unit }}</option>
-            </select>
-          </div>
-          <div class="modal-footer">
-            <div class="text-danger text-nowrap mr-3" v-if="0!==tempProduct.count">小計 <strong>{{
-              sumOfTempProduct }}</strong> 元
-            </div>
-            <button type="button" class="btn btn-info" @click.prevent="addToCart(tempProduct)">Add
-              to cart
-            </button>
           </div>
         </div>
       </div>
@@ -90,25 +53,14 @@ export default {
   data() {
     return {
       categories: [],
-      currentCategory: '',
+      currentCategory: 'All',
       products: [],
-      tempProduct: {},
     };
   },
   methods: {
-    addToCart(product) {
-      if (product.count === 0) return;
-      this.$bus.$emit('add to cart', product);
-      this.$(this.$refs.moreModal).modal('hide');
-    },
-    openModal(id) {
-      this.retrieveProductDetail(id);
-    },
     applyCategory(item) {
-      if (this.currentCategory === '' || this.currentCategory !== item) {
+      if (this.currentCategory === 'All' || item !== this.currentCategory) {
         this.currentCategory = item;
-      } else {
-        this.currentCategory = '';
       }
     },
     retrieveProducts(page = 0) {
@@ -116,24 +68,12 @@ export default {
       this.$http.get(`${process.env.VUE_APP_API_PATH}/products`, {
         params: { page },
       }).then(({ data: { data } }) => {
-        this.categories = new Set(data.map((product) => product.category));
+        const categories = data.map((product) => product.category);
+        categories.unshift('All');
+        this.categories = new Set(categories);
         this.products = data;
         loader.hide();
       });
-    },
-    retrieveProductDetail(id) {
-      const loader = this.$loading.show({
-        isFullPage: false,
-        loader: 'dots',
-        container: this.$refs[`moreDetail${id}`][0],
-      });
-      this.$http.get(`${process.env.VUE_APP_API_PATH}/product/${id}`)
-        .then(({ data: { data } }) => {
-          this.tempProduct = data;
-          this.$set(this.tempProduct, 'count', 0);
-          loader.hide();
-          this.$(this.$refs.moreModal).modal('show');
-        });
     },
   },
   created() {
@@ -141,11 +81,8 @@ export default {
   },
   computed: {
     filterProducts() {
-      if (this.currentCategory === '') return this.products;
+      if (this.currentCategory === 'All') return this.products;
       return this.products.filter((item) => this.currentCategory === item.category);
-    },
-    sumOfTempProduct() {
-      return this.tempProduct.price * this.tempProduct.count;
     },
   },
 };
