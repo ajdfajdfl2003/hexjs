@@ -53,9 +53,6 @@ const routes = [
       }, {
         path: 'photos',
         component: () => import('../views/dashboard/Photos'),
-      }, {
-        path: 'logout',
-        component: () => import('../views/dashboard/Logout'),
       },
     ],
   },
