@@ -19,7 +19,6 @@
     </form>
   </div>
 </template>
-
 <script>
 import handleCookie from './mixins/handleCookie';
 
@@ -41,7 +40,7 @@ export default {
   methods: {
     login() {
       const loader = this.$loading.show({ isFullPage: true });
-      this.$http.post('https://course-ec-api.hexschool.io/api/auth/login', this.request)
+      this.$http.post(`${process.env.VUE_APP_API_PATH}/auth/login`, this.request)
         .then(({ data: { uuid, token, expired } }) => {
           document.cookie = `token=${token}; expires=${new Date(expired * 1000)}`;
           document.cookie = `uuid=${uuid}; expires=${new Date(expired * 1000)}`;
@@ -73,7 +72,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
   .login {
     min-height: 100%; /* Fallback for browsers do NOT support vh unit */

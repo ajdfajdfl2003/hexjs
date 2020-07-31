@@ -65,7 +65,7 @@ export default {
     },
     retrieveProducts(page = 0) {
       const loader = this.$loading.show({ isFullPage: true });
-      this.$http.get(`${process.env.VUE_APP_API_PATH}/products`, {
+      this.$http.get(`${process.env.VUE_APP_API_PATH}/${process.env.VUE_APP_UUID}/ec/products`, {
         params: { page },
       }).then(({ data: { data } }) => {
         const categories = data.map((product) => product.category);
@@ -87,7 +87,6 @@ export default {
   },
 };
 </script>
-
 <style lang="scss">
   .category-block li:hover {
     background-color: rgba(31, 87, 94, 0.5);

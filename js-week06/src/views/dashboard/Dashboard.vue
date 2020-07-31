@@ -24,7 +24,6 @@
     <router-view></router-view>
   </div>
 </template>
-
 <script>
 import handleActive from '../mixins/handleActive';
 import handleCookie from '../mixins/handleCookie';
@@ -35,7 +34,7 @@ export default {
   methods: {
     logout() {
       const loader = this.$loading.show({ isFullPage: true });
-      this.$http.post('https://course-ec-api.hexschool.io/api/auth/logout', {
+      this.$http.post(`${process.env.VUE_APP_API_PATH}/auth/logout`, {
         api_token: this.retrieveCookie('token'),
       }).then(() => {
         loader.hide();
@@ -62,7 +61,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 
 </style>

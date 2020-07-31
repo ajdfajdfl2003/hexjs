@@ -21,7 +21,6 @@
     <router-view/>
   </div>
 </template>
-
 <script>
 
 import handleActive from './mixins/handleActive';
