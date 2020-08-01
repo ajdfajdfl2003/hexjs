@@ -4,3 +4,4 @@
 - [第三週主線任務：產品管理頁面（不接 API）](https://ajdfajdfl2003.github.io/hexjs/js-week03/)
 - [第四週主線任務：Vue 與 API 串接](https://ajdfajdfl2003.github.io/hexjs/js-week4/)
 - [第五週主線任務：表單驗證](https://ajdfajdfl2003.github.io/hexjs/js-week05/)
+- [第六週主線任務：建立路由](https://ajdfajdfl2003.github.io/hexjs/js-week06/dist/)
