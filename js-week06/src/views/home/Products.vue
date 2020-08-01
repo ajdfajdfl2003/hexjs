@@ -72,8 +72,7 @@ export default {
         categories.unshift('All');
         this.categories = new Set(categories);
         this.products = data;
-        loader.hide();
-      });
+      }).finally(() => loader.hide());
     },
   },
   created() {

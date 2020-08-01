@@ -21,43 +21,61 @@
         </div>
       </div>
     </nav>
-    <router-view></router-view>
+    <router-view v-if="isValid" :user="user"></router-view>
   </div>
 </template>
 <script>
-import handleActive from '../mixins/handleActive';
-import handleCookie from '../mixins/handleCookie';
+import handleRouter from '@/views/mixins/handleRouter';
+import handleActive from '@/views/mixins/handleActive';
+import handleCookie from '@/views/mixins/handleCookie';
 
 export default {
   name: 'dashboard',
-  mixins: [handleActive, handleCookie],
+  mixins: [handleActive, handleCookie, handleRouter],
+  data() {
+    return {
+      user: {},
+      isValid: false,
+    };
+  },
   methods: {
     logout() {
       const loader = this.$loading.show({ isFullPage: true });
       this.$http.post(`${process.env.VUE_APP_API_PATH}/auth/logout`, {
-        api_token: this.retrieveCookie('token'),
-      }).then(() => {
+        api_token: this.user.token,
+      }).finally(() => {
         loader.hide();
-        this.$router.push('/');
-      }).catch(() => {
-        loader.hide();
+        this.destroyAuthority();
+        this.goToHomePage();
       });
     },
-    handleUnAuthorized() {
-      if (!this.isValid()) {
-        this.$router.push('/login');
+    async retrieveTokenStatus() {
+      await this.$http.post(`${process.env.VUE_APP_API_PATH}/auth/check`, { api_token: this.user.token })
+        .then(({ data: { success } }) => { this.isValid = success; })
+        .catch(() => { this.isValid = false; });
+    },
+    async handleAuthorization() {
+      if (!this.isCookieValid()) this.goToLoginPage();
+      else {
+        this.user.uuid = this.retrieveUUID();
+        this.user.token = this.retrieveToken();
+
+        const loader = this.$loading.show({ isFullPage: true });
+        await this.retrieveTokenStatus();
+        loader.hide();
+        if (!this.isValid) {
+          this.destroyAuthority();
+          this.goToLoginPage();
+        }
       }
     },
   },
   mounted() {
-    this.handleUnAuthorized();
+    this.handleAuthorization();
     this.handleAddActive();
   },
   updated() {
     this.handleAddActive();
-  },
-  beforeMount() {
-    this.handleUnAuthorized();
   },
 };
 </script>

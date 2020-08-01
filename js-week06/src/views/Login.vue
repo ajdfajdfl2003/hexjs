@@ -20,11 +20,12 @@
   </div>
 </template>
 <script>
-import handleCookie from './mixins/handleCookie';
+import handleRouter from '@/views/mixins/handleRouter';
+import handleCookie from '@/views/mixins/handleCookie';
 
 export default {
   name: 'Login',
-  mixins: [handleCookie],
+  mixins: [handleCookie, handleRouter],
   data() {
     return {
       request: {
@@ -42,25 +43,25 @@ export default {
       const loader = this.$loading.show({ isFullPage: true });
       this.$http.post(`${process.env.VUE_APP_API_PATH}/auth/login`, this.request)
         .then(({ data: { uuid, token, expired } }) => {
+          loader.hide();
           document.cookie = `token=${token}; expires=${new Date(expired * 1000)}`;
           document.cookie = `uuid=${uuid}; expires=${new Date(expired * 1000)}`;
-          loader.hide();
           this.response.isShow = false;
-          this.$router.push('/dashboard');
+          this.goToDashboard();
         })
         .catch((error) => {
+          loader.hide();
           if (error.response) {
             const { message } = error.response.data;
             this.response.message = message;
             this.response.isShow = true;
           }
-          loader.hide();
         });
     },
   },
   beforeMount() {
-    if (this.isValid()) {
-      this.$router.push('/dashboard');
+    if (this.isCookieValid()) {
+      this.goToDashboard();
     }
   },
   directives: {
