@@ -1,6 +1,6 @@
 <template>
   <div class="home container-fluid">
-    <nav class="navbar navbar-expand-md navbar-dark bg-info">
+    <nav class="navbar navbar-expand-md navbar-dark bg-info fixed-top">
       <button class="navbar-toggler" type="button" data-toggle="collapse"
               data-target="#navbarHome" aria-controls="navbarHome"
               aria-expanded="false" aria-label="Toggle navigation">
@@ -9,12 +9,11 @@
       <div class="collapse navbar-collapse" id="navbarHome">
         <div class="navbar-nav">
           <router-link to="/" class="nav-item nav-link">首頁</router-link>
-            <router-link to="/product/123" class="nav-item nav-link">產品頁面</router-link>
-            <router-link to="/cart" class="nav-item nav-link">購物車</router-link>
-            <router-link to="/payment" class="nav-item nav-link">結帳</router-link>
-            <router-link to="/payment/finish" class="nav-item nav-link">結帳完成</router-link>
-            <router-link to="/about" class="nav-item nav-link">關於我們</router-link>
-            <router-link to="/login" class="nav-item nav-link">登入</router-link>
+          <router-link to="/cart" class="nav-item nav-link">購物車</router-link>
+          <router-link to="/payment" class="nav-item nav-link">結帳</router-link>
+          <router-link to="/payment/finish" class="nav-item nav-link">結帳完成</router-link>
+          <router-link to="/about" class="nav-item nav-link">關於我們</router-link>
+          <router-link to="/login" class="nav-item nav-link">登入</router-link>
         </div>
       </div>
     </nav>
@@ -36,3 +35,9 @@ export default {
   },
 };
 </script>
+
+<style lang="css" scoped>
+.home {
+  padding-top: 60px;
+}
+</style>
