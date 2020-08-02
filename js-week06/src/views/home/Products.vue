@@ -33,7 +33,7 @@
             </div>
             <div class="card-footer d-flex">
               <div style="position: relative">
-                <button type="button" class="btn btn-light" @click.prevent="">
+                <button type="button" class="btn btn-light" @click.prevent="moreDetail(product.id)">
                   More
                 </button>
               </div>
@@ -58,6 +58,9 @@ export default {
     };
   },
   methods: {
+    moreDetail(id) {
+      this.$router.push(`product/${id}`);
+    },
     applyCategory(item) {
       if (this.currentCategory === 'All' || item !== this.currentCategory) {
         this.currentCategory = item;
